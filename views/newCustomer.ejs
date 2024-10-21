@@ -1,0 +1,80 @@
+<%- include("top.ejs") %>
+    <p>Preencha os campos abaixo para cadastrar um cliente</p>
+    <div class="col-6">
+        <form action="/customers/new" method='POST'>
+            <div class="row mb-3"></div>
+                <div class="form-group">
+                    <label for="name">Nome:</label>
+                    <input type="text" name="name" value="<%= customer.name %>" class="form-control" placeholder="Nome do cliente">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="form-group">
+                    <label for="age">Idade:</label>
+                    <input type="text" name="age" value="<%= customer.age %>" class="form-control" placeholder="Idade do cliente">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="form-group">
+                    <label for="cpf">CPF:</label>
+                    <input type="text" name="cpf" value="<%= customer.cpf %>" class="form-control" placeholder="CPF do cliente">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="form-group">
+                    <label for="city">Região:</label>
+                    <div class="input-group">
+                        <input type="text" name="city" value="<%= customer.city %>" class="form-control" placeholder="Cidade do cliente">
+                        <select id="uf" name="uf" class="form-control">
+                            <option>Selecione a UF:</option>
+                        </select>
+                    </div>                  
+                </div>
+            </div>
+                <p> 
+                    <input type="submit" value="Salvar" class="btn btn-primary">
+                    <a href="/customers" class="btn btn-secondary">Cancelar</a>
+                </p>
+                <input type="hidden" name="id" value="<%=customer._id%>">
+        </form>
+    </div>
+    </body>
+    <script>
+        <% if (signal){ %>
+            alert("Por favor, escolha uma UF")
+        <%}%>
+
+        const select = document.getElementById("uf")
+
+        console.log(select)
+
+        fetch("https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome")
+            .then(response => response.json())
+            .then(uf => {
+                uf.forEach(element => {
+                    const newOption = document.createElement("option");
+                    newOption.label = element.sigla;
+                    newOption.value = element.sigla;
+                    select.appendChild(newOption);
+                });
+            })
+            .catch(error => alert(error))
+
+        <% if (customer.uf){ %>      
+            
+            const newOption = document.createElement("option")
+            newOption.label = "<%=customer.uf%>"
+            newOption.value = "<%=customer.uf%>"
+            newOption.selected = true
+
+            select.appendChild(newOption)
+        <% }   %>   
+          
+
+        if(window.location.search){
+            const error = window.location.search.split("=")[1];
+            alert(decodeURI(error))
+        }
+    </script>
+    
+<%- include("bottom.ejs") %>

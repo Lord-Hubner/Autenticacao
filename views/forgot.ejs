@@ -1,0 +1,22 @@
+<%-include('top.ejs')%>
+<div class="col-6">
+    <form action="/forgot" method="POST">
+    <div class="form-group mb-3">
+        <label for="email">Insira o seu email cadastrado para recuperar sua senha</label>
+        <input type="text" name="email" class="form-control" placeholder="Email do usuário">
+    </div>
+    <input type="submit" value="Recuperar senha" class="btn btn-primary">
+    </form>
+</div>
+<hr />
+<% if (message){ %>
+<div class="alert alert-danger">
+    <%= message %>
+</div>
+<%} %>
+<p>
+    <a href="/">Voltar</a>
+</p>
+
+
+<%-include('bottom.ejs')%>

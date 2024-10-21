@@ -1,0 +1,64 @@
+<%- include("top.ejs") %>
+<p class="alert alert-info">
+  <%= qty %> usuários cadastrados!
+</p>
+<table class="table table-bordered table-striped table-hover">
+  <thead class="thead-dark">
+    <tr>
+      <td>Nome</td>
+      <td>Email</td> 
+      <td>Ações</td>       
+    </tr>
+  </thead>
+  <% customers.forEach(item => {
+    %>
+    <tbody>
+      <tr>
+        <td><a href="/users/edit/<%=item._id%>" title="Editar"><%= item.name %></a></td>
+        <td><%= item.email %></td>
+        <td>
+          <a href="/users/edit/<%=item._id%>" title="Editar" class="btn btn-editar">
+            <img src="/images/EditButton.png"
+          </a>
+          <a href="/users/delete/<%=item._id%>" title="Excluir"
+            onclick="return confirm('Tem certeza que deseja excluir este cliente?')" class="btn btn-danger">
+            <img src="/images/DeleteButton.png" height="27" width="27">
+          </a>
+      </td>
+      </tr>
+    </tbody>
+  <%
+})
+%>
+</table>
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <% for(let i=1;i <= pagesQty; i++) {
+      if (page === i) {%>
+        <li class="page-item active"><a class="page-link" href="/users/<%= i %>"><%= i %></a></li>
+      <%} else { %>
+        <li class="page-item"><a class="page-link" href="/users/<%= i %>"><%= i %></a></li>
+      <% }} %>
+
+  </ul>
+</nav>
+<div class="row">
+  <div class="col-2">
+     <a href="/users/new" class="btn btn-primary">Cadastrar novo</a>
+  </div>
+  <div class="col-2">
+    <a href="/index" class="btn btn-primary">Index</a>
+ </div>
+ <div class="col-2">
+  <form action="/logout" method="POST">
+    <input type="submit" value="Logout" class="btn btn-secondary">
+  </form>
+  </div>
+</div>
+<script>
+        if(window.location.search){
+        const error = window.location.search.split("=")[1];
+        alert(decodeURI(error))
+    }
+</script>
+<%- include("bottom.ejs") %>

@@ -1,0 +1,24 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+table thead tr {
+  background-color: #ccc;
+}
+
+table tbody td:hover {
+  background-color: #ccc;
+}
+
+.btn-editar{
+  background-color: #00B7FF;
+}
+
+/* .container h1 {
+  font-size: 24px;
+} */
